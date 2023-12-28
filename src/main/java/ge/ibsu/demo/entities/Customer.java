@@ -2,12 +2,16 @@ package ge.ibsu.demo.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "customer")
 
 public class Customer {
 
     @Id
+    @SequenceGenerator(name = "customer_customer_id_seq",sequenceName = "customer_customer_id_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "customer_customer_id_seq")
     @Column(name = "customer_id")
 
     private long id;
@@ -19,7 +23,7 @@ public class Customer {
     private String lastname;
 
     @Column(name = "create_date")
-    private String createdDate;
+    private Date createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
@@ -49,11 +53,11 @@ public class Customer {
         this.lastname = lastname;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -64,4 +68,6 @@ public class Customer {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+
 }
